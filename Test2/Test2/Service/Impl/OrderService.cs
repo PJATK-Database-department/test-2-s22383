@@ -21,14 +21,13 @@ namespace Test2.Service.Impl
 
         public async Task AddProductToOrder(int idOrder, List<ProductWithCommentDto> products)
         {
-            Console.WriteLine(1);
             if (products.Count == 0)
             {
                 throw new BadRequestException("List of Product is empty.");
             }
 
             var order = await _context.ClientOrder.FirstAsync(o => o.IdClientOrder == idOrder);
-            Console.WriteLine(2);
+            
             if (order == null)
             {
                 throw new NotFoundException("Order doesn't exist.");
@@ -39,7 +38,7 @@ namespace Test2.Service.Impl
                 throw new BadRequestException("Order is completed.");
             }
 
-            Console.WriteLine(3);
+            
             var productsFromDb = new List<Confectionery>();
             foreach (var product in products)
             {
@@ -66,8 +65,8 @@ namespace Test2.Service.Impl
             {
                 await _context.ConfectioneryClientOrder.AddAsync(confectioneryClientOrder);
             }
-
-            Console.WriteLine(4);
+            
+            
             await _context.SaveChangesAsync();
         }
     }
